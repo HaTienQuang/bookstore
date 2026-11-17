@@ -79,7 +79,7 @@
                         <div class="mb-2 form-group">
                             <label for="name" class="col-md-4 control-label">☎️ Số điện thoại<code>*</code></label>
                             <div>
-                                <input id="phone" type="text" class="form-control" name="phone" value="<?= $this->e(\App\SessionGuard::user()->phone) ?>" required>
+                                <input id="phone" type="text" class="form-control" name="phone" value="<?= $this->e(\App\SessionGuard::user() ? \App\SessionGuard::user()->phone : '') ?>" required>
                                 <?php if (isset($errors['phone'])) : ?>
                                     <span class="help-block">
                                         <strong><?= $this->e($errors['phone']) ?></strong>
@@ -91,7 +91,7 @@
                         <div class="mb-2 form-group<?= isset($errors['address']) ? ' has-error' : '' ?>">
                             <label for="address" class="col-md-4 control-label">🏡 Địa chỉ<code>*</code></label>
                             <div>
-                                <input id="address" type="text" class="form-control" name="address" value="<?= $this->e(\App\SessionGuard::user()->address) ?>" required>
+                                <input id="address" type="text" class="form-control" name="address" value="<?= $this->e(\App\SessionGuard::user() ? \App\SessionGuard::user()->address : '') ?>" required>
 
                                 <?php if (isset($errors['address'])) : ?>
                                     <span class="help-block">

@@ -21,9 +21,20 @@ $isVercel = !empty(getenv('VERCEL'));
 $useSqlite = ($dbDriver === 'sqlite') || ($isVercel && (empty($dbHost) || $dbHost === 'localhost' || $dbHost === '127.0.0.1'));
 
 if ($useSqlite && file_exists(ROOTDIR . 'database.sqlite')) {
+	$sqlitePath = ROOTDIR . 'database.sqlite';
+	if ($isVercel) {
+		$tmpDb = '/tmp/database.sqlite';
+		if (!file_exists($tmpDb) || filesize($tmpDb) === 0) {
+			@copy($sqlitePath, $tmpDb);
+		}
+		if (file_exists($tmpDb)) {
+			$sqlitePath = $tmpDb;
+		}
+	}
+
 	$manager->addConnection([
 		'driver'                  => 'sqlite',
-		'database'                => ROOTDIR . 'database.sqlite',
+		'database'                => $sqlitePath,
 		'prefix'                  => '',
 		'foreign_key_constraints' => true,
 	]);
