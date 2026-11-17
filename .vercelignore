@@ -1,0 +1,6 @@
+.git
+composer.phar
+bookstore.sql
+docker-compose.yml
+Dockerfile
+vhosts.txt
